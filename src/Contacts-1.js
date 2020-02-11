@@ -1,34 +1,26 @@
 import React from 'react';
 import ContactInfo from './ContactInfo';
-import ContactDetails from './ContactDetails';
+
 
 export default class Contacts extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            selectedKey:-1,
+        this.state={
             keyword:'',
-            contacts:[
-                {id:'1', name:'A', phone:'010-0000-0001'},
-                {id:'2', name:'B', phone:'010-0000-0002'},
-                {id:'3', name:'C', phone:'010-0000-0003'},
-                {id:'4', name:'D', phone:'010-0000-0004'}
-            ]           
+          contacts:[
+                {id:1, name:'A', phone:'010-0000-0001'},
+                {id:2, name:'B', phone:'010-0000-0002'},
+                {id:3, name:'C', phone:'010-0000-0003'},
+                {id:4, name:'D', phone:'010-0000-0004'}
+            ]  
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
     }
     handleChange(e){
         this.setState({
             [e.target.name]:e.target.value
-        })
-    }
-    handleClick(key){
-        this.setState({
-            selectedKey:key
-        })
-        console.log(key)
-    }
+        })      
+    } 
     render(){
         const mapToComponent = (datas) => {
             datas.sort();
@@ -37,12 +29,9 @@ export default class Contacts extends React.Component{
                 .indexOf(this.state.keyword.toLowerCase())>-1
             })
             return datas.map((data,i)=>{
-                return <ContactInfo 
-                contacts={data} 
-                key={i}
-                onClick={() => this.handleClick(i)}/>
+                return <ContactInfo contacts={data} key={i}/>
             })
-        }  
+        }    
         return(
             <> 
                 <h1>Contacts</h1>
@@ -53,9 +42,7 @@ export default class Contacts extends React.Component{
                     onChange={this.handleChange}
                 />
                 {mapToComponent(this.state.contacts)}
-                <ContactDetails isSelected={this.state.selectedKey !== -1}
-                contact={this.state.contacts[this.state.selectedKey]}/>
             </>
-        )
+        );
     }
 }
