@@ -1,6 +1,8 @@
 import React from 'react';
 import ContactInfo from './ContactInfo';
 import ContactDetails from './ContactDetails';
+import update from 'react-addons-update';
+import ContactCreate from './ContactCreate';
 
 export default class Contacts extends React.Component{
     constructor(props){
@@ -17,6 +19,9 @@ export default class Contacts extends React.Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleCreate = this.handleCreate.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
     }
     handleChange(e){
         this.setState({
@@ -27,7 +32,36 @@ export default class Contacts extends React.Component{
         this.setState({
             selectedKey:key
         })
-        console.log(key)
+    } 
+    handleCreate(contact){
+        this.setState({
+            contacts:update(
+                this.state.contacts,{$push:[contact]}
+            )
+        })
+    }
+    handleRemove(){
+        this.setState({
+            contacts:update(
+                this.state.contacts,{$splice:[[this.state.selectedKey,1]]}
+            ),
+            selectedKey:-1
+        })
+    }
+    handleEdit(name,phone ){
+        this.setState({
+             contacts:update(
+                this.setState.contacts,{
+                    [this.state.selectedKey]:{
+                        name : {$set:name},
+                        phone: {$set:phone}
+                    }
+                }
+            )           
+        }
+
+        )
+
     }
     render(){
         const mapToComponent = (datas) => {
@@ -55,6 +89,7 @@ export default class Contacts extends React.Component{
                 {mapToComponent(this.state.contacts)}
                 <ContactDetails isSelected={this.state.selectedKey !== -1}
                 contact={this.state.contacts[this.state.selectedKey]}/>
+                <ContactCreate onCreate={this.handleCreate}/>
             </>
         )
     }
