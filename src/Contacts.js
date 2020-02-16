@@ -90,9 +90,10 @@ export default class Contacts extends React.Component{
                     onChange={this.handleChange}
                 />
                 {mapToComponent(this.state.contacts)}
-                <ContactDetails isSelected={this.state.selectedKey !== -1}
+                <ContactDetails isSelected={this.state.selectedKey != -1}
                 contact={this.state.contacts[this.state.selectedKey]}
                 onRemove={this.handleRemove}
+                onEdit={this.handleEdit}
                 />
                 <ContactCreate onCreate={this.handleCreate}/>
             </>
