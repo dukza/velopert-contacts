@@ -52,7 +52,7 @@ export default class Contacts extends React.Component{
             selectedKey:-1
         })
     }
-    handleEdit(name,phone ){
+    handleEdit(name,phone){
         this.setState({
              contacts:update(
                 this.state.contacts,{
