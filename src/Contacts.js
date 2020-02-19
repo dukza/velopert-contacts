@@ -32,6 +32,7 @@ export default class Contacts extends React.Component{
         this.setState({
             selectedKey:key
         })
+        console.log(key,'is defined')
     } 
     handleCreate(contact){
         this.setState({
@@ -54,7 +55,7 @@ export default class Contacts extends React.Component{
     handleEdit(name,phone ){
         this.setState({
              contacts:update(
-                this.setState.contacts,{
+                this.state.contacts,{
                     [this.state.selectedKey]:{
                         name : {$set:name},
                         phone: {$set:phone}
@@ -90,10 +91,10 @@ export default class Contacts extends React.Component{
                     onChange={this.handleChange}
                 />
                 {mapToComponent(this.state.contacts)}
-                <ContactDetails isSelected={this.state.selectedKey != -1}
+                <ContactDetails isSelected={this.state.selectedKey !== -1}
                 contact={this.state.contacts[this.state.selectedKey]}
                 onRemove={this.handleRemove}
-                onEdit={this.handleEdit}
+                onEdit = {this.handleEdit}
                 />
                 <ContactCreate onCreate={this.handleCreate}/>
             </>
