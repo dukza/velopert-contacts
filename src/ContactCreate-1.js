@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 export default class ContactCreate extends Component{
     constructor(props){
         super(props);
@@ -30,24 +30,34 @@ export default class ContactCreate extends Component{
         return(
             <>
                 <h2>Create</h2>
-                <input
-                type="text"
-                placeholder="name"
-                name="name"
-                onChange={this.handleChange}
-                value={this.state.name}
-                />
-                <input
-                type="text"
-                placeholder="phone"
-                name="phone"
-                onChange={this.handleChange}
-                value={this.state.phone}
-                />
+                <p>
+                    <input type="text"
+                        name="name"
+                        placeholder="name"
+                        value={this.state.name}
+                        onChange={this.handleChange}
+                    />
+                    <input type="text"
+                        name="phone"
+                        placeholder="phone"
+                        value={this.state.phone}
+                        onChange={this.handleChange}
+                    />
+
+                </p>
                 <button
                     onClick={this.handleClick}
-                >Create</button>
+                >Create</button>              
             </>
         )
     }
 }
+
+ContactCreate.propTypes = {
+    onCreate : PropTypes.func
+};
+
+ContactCreate.defaultProps = {
+    onCreate:()=>{console.error('onCreate not defined');}
+}
+

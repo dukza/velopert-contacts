@@ -25,15 +25,16 @@ export default class ContactDetails extends Component{
             isEdit: !this.state.isEdit,
         }) 
         console.log(this.state.isEdit)
-    }    
+    }   
+    handleEdit(){
+        this.props.onEdit(this.state.name, this.state.phone)
+    }
     handleChange(e){
         let nextState = {};
         nextState[e.target.name]=e.target.value;
         this.setState(nextState)
     }
-    handleEdit(){
-        this.props.onEdit(this.state.name, this.state.phone)
-    }
+
     render(){
         const details = (
             <>
@@ -44,6 +45,7 @@ export default class ContactDetails extends Component{
 
         const edit = (
             <>
+            <h2>Edit</h2>
             <p>
                 <input type="text"
                     name="name"
